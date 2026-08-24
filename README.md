@@ -81,11 +81,11 @@ Introduced `EagerInputFile` and `EagerInputStream` in Iceberg core: the file is
 fetched once up front and every subsequent read is served from memory, removing
 redundant object-store requests.
 
-### 3. Integration — Under Review
+### 3. Integration — Approved
 
 | PR | Title | Status |
 | --- | --- | --- |
-| [#17284](https://github.com/apache/iceberg/pull/17284) | Core: Add eager fetch to the Parquet read path | Under review — wires `EagerInputFile` into the Parquet reader |
+| [#17284](https://github.com/apache/iceberg/pull/17284) | Core: Add eager fetch to the Parquet read path | Approved |
 
 Integrates `EagerInputFile` into Iceberg's Parquet read path so files below the
 configured threshold are fetched eagerly, covering every Parquet read — data
@@ -211,6 +211,6 @@ or without a way forward, and always guided me through every situation.
 
 Thanks to everyone in the Apache Iceberg community who took part in discussions,
 shared feedback, and reviewed my changes. There are too many to name individually,
-but each conversation, suggestion, and review helped shape this work, and I truly
+but each conversation, suggestion and review helped shape this work and I truly
 appreciate all of it.
 
