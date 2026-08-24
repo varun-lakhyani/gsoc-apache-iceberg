@@ -186,7 +186,10 @@ decisions clearly.
 - **Pull requests** — [contributing changes](https://github.com/apache/iceberg/pulls?q=author%3Avarun-lakhyani)
   to Iceberg, from benchmarks through to core.
 - **Reviews** — getting started with reviewing PRs to help the community, such as
-  [#16910](https://github.com/apache/iceberg/pull/16910).
+  [#17545](https://github.com/apache/iceberg/pull/17545) and
+  [#16054](https://github.com/apache/iceberg/pull/16054).
+- **Wrapping up** — [closed the work on the dev list](https://lists.apache.org/thread/nvt5ddytf99jnjr58q1lsnpbn9j0ddb0) and committed to
+  continuing with Iceberg.
 
 ## Links
 
@@ -194,7 +197,7 @@ decisions clearly.
 <tr><td valign="top"><b>Issues</b></td><td><a href="https://github.com/apache/iceberg/issues/15287">#15287</a> Small-file read latency &middot; <a href="https://github.com/apache/iceberg/issues/16905">#16905</a> Stale manifest length <b>(not mine)</b></td></tr>
 <tr><td valign="top"><b>Merged PRs</b></td><td><a href="https://github.com/apache/iceberg/pull/16219">#16219</a> Compaction benchmark &middot; <a href="https://github.com/apache/iceberg/pull/16593">#16593</a> Benchmark refactor &middot; <a href="https://github.com/apache/iceberg/pull/16729">#16729</a> EagerInputFile / EagerInputStream</td></tr>
 <tr><td valign="top"><b>Open PRs</b></td><td><a href="https://github.com/apache/iceberg/pull/17284">#17284</a> Parquet read path integration &middot; <a href="https://github.com/apache/iceberg/pull/16910">#16910</a> Manifest-length fix <b>(not mine)</b></td></tr>
-<tr><td valign="top"><b>Dev mailing list</b></td><td><a href="https://lists.apache.org/thread/rvbwmcbrlr3syd1movflw3vmprm27nmz">GSoC idea vetting and vote</a> &middot; <a href="https://lists.apache.org/thread/yb8nom3w2zplb703m0p052kcc1wwotrr">EagerInputFile discussion</a> &middot; <a href="https://lists.apache.org/thread/qhn00762nrxl1zmb817wqqq5tzlqolbq">Integration point discussion</a></td></tr>
+<tr><td valign="top"><b>Dev mailing list</b></td><td><a href="https://lists.apache.org/thread/rvbwmcbrlr3syd1movflw3vmprm27nmz">GSoC idea vetting and vote</a> &middot; <a href="https://lists.apache.org/thread/yb8nom3w2zplb703m0p052kcc1wwotrr">EagerInputFile discussion</a> &middot; <a href="https://lists.apache.org/thread/qhn00762nrxl1zmb817wqqq5tzlqolbq">Integration point discussion</a> &middot; <a href="https://lists.apache.org/thread/nvt5ddytf99jnjr58q1lsnpbn9j0ddb0">Wrapping up</a></td></tr>
 <tr><td valign="top"><b>Community sync</b></td><td><a href="https://youtu.be/usgUe8r_e9E?t=151">Iceberg Spark Community Sync, 17 Mar 2026</a></td></tr>
 <tr><td valign="top"><b>Benchmark reports</b></td><td><a href="https://github.com/varun-lakhyani/iceberg-default-aal-eagerinputfile/blob/main/README.md">Compaction</a> &middot; <a href="https://github.com/varun-lakhyani/iceberg-manifest-eagerpath-benchmark/blob/main/README.md">Manifest reads</a></td></tr>
 <tr><td valign="top"><b>POC</b></td><td><a href="https://github.com/apache/iceberg/pull/15341">#15341</a> Async reader</td></tr>
