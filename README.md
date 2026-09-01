@@ -91,6 +91,12 @@ Integrates `EagerInputFile` into Iceberg's Parquet read path so files below the
 configured threshold are fetched eagerly, covering every Parquet read — data
 files, V4 manifests and so on.
 
+![How the Parquet reader, EagerInputFile and EagerInputStream fit together](images/eager-read-path.png)
+
+The reader performs the same three reads either way. `EagerInputFile` fetches the
+file in one request, creates `EagerInputStream` over those bytes, and the three
+reads are served from memory.
+
 ## Benchmark Results
 
 Measured with **JMH** on an AWS EC2 `r5.4xlarge` in the same region as the S3
