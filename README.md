@@ -18,8 +18,8 @@ small-file workloads this overhead dominates scans and compaction, making
 performance bound by request count and round-trip latency rather than
 throughput. This work addresses that overhead by introducing `EagerInputFile`
 and `EagerInputStream` in Iceberg core, which fetch the file eagerly and serve
-subsequent reads from memory and works with any `InputFile` implementation.
-The approach is being integrated into Iceberg's Parquet read path so Parquet
+subsequent reads from memory and work with any `InputFile` implementation.
+The approach has been integrated into Iceberg's Parquet read path so Parquet
 requests for files within the configured threshold can be served eagerly,
 reducing the number of requests and the round trips they cost with parallel
 reads across all file sizes as a further step.
@@ -50,12 +50,12 @@ Reading a Parquet file starts at the end and each request locates the next.
 When the file is only a few kilobytes, those requests cost more than the data they
 carry. Fetching it once and serving all three reads from memory replaces three
 round trips with one — that is what `EagerInputFile` does ([#16729](https://github.com/apache/iceberg/pull/16729)),
-and it is being wired into the Parquet read path
+and has been wired into the Parquet read path
 ([#17284](https://github.com/apache/iceberg/pull/17284)).
 
 Parallelism would have hidden this per-file latency rather than removed it so
-removing the requests was prioritised first. With the core change merged and
-heading into a release work on parallelism is now in progress.
+removing the requests was prioritised first. With both the core change and
+integration merged and heading into a release, work on parallelism is now in progress.
 
 ## Contributions
 
@@ -77,23 +77,19 @@ optimisation could be measured accurately.
 | --- | --- | --- |
 | [#16729](https://github.com/apache/iceberg/pull/16729) | Core: Add `EagerInputFile` and `EagerInputStream` to buffer files below a size threshold | Jul 13, 2026 |
 
-Introduced `EagerInputFile` and `EagerInputStream` in Iceberg core: the file is
+Introduces `EagerInputFile` and `EagerInputStream` in Iceberg core: the file is
 fetched once up front and every subsequent read is served from memory, removing
 redundant object-store requests.
 
-### 3. Integration — Approved
+### 3. Integration — Merged
 
-| PR | Title | Status |
+| PR | Title | Merged |
 | --- | --- | --- |
-| [#17284](https://github.com/apache/iceberg/pull/17284) | Core: Add eager fetch to the Parquet read path | Approved |
+| [#17284](https://github.com/apache/iceberg/pull/17284) | Core: Add eager fetch to the Parquet read path | Sep 1, 2026 |
 
 Integrates `EagerInputFile` into Iceberg's Parquet read path so files below the
 configured threshold are fetched eagerly, covering every Parquet read — data
 files, V4 manifests and so on.
-
-The PR is currently waiting on a stale Parquet manifest-length fix tracked in
-[#16910](https://github.com/apache/iceberg/pull/16910) — not my PR, I am only part
-of the discussion.
 
 ## Benchmark Results
 
@@ -155,8 +151,6 @@ expected, since it already reads in a single GET.
 
 ## What's Left to Do
 
-- **Land [#17284](https://github.com/apache/iceberg/pull/17284)** — waiting on the manifest-length fix in
-  [#16910](https://github.com/apache/iceberg/pull/16910).
 - **Parallelism** — extending the read path with parallel execution across all
   file sizes.
 
@@ -186,8 +180,7 @@ decisions clearly.
 - **Pull requests** — [contributing changes](https://github.com/apache/iceberg/pulls?q=author%3Avarun-lakhyani)
   to Iceberg, from benchmarks through to core.
 - **Reviews** — getting started with reviewing PRs to help the community, such as
-  [#17545](https://github.com/apache/iceberg/pull/17545) and
-  [#16054](https://github.com/apache/iceberg/pull/16054).
+  [#16910](https://github.com/apache/iceberg/pull/16910).
 - **Wrapping up** — [closed the work on the dev list](https://lists.apache.org/thread/nvt5ddytf99jnjr58q1lsnpbn9j0ddb0) and committed to
   continuing with Iceberg.
 
@@ -195,8 +188,7 @@ decisions clearly.
 
 <table>
 <tr><td valign="top"><b>Issues</b></td><td><a href="https://github.com/apache/iceberg/issues/15287">#15287</a> Small-file read latency &middot; <a href="https://github.com/apache/iceberg/issues/16905">#16905</a> Stale manifest length <b>(not mine)</b></td></tr>
-<tr><td valign="top"><b>Merged PRs</b></td><td><a href="https://github.com/apache/iceberg/pull/16219">#16219</a> Compaction benchmark &middot; <a href="https://github.com/apache/iceberg/pull/16593">#16593</a> Benchmark refactor &middot; <a href="https://github.com/apache/iceberg/pull/16729">#16729</a> EagerInputFile / EagerInputStream</td></tr>
-<tr><td valign="top"><b>Open PRs</b></td><td><a href="https://github.com/apache/iceberg/pull/17284">#17284</a> Parquet read path integration &middot; <a href="https://github.com/apache/iceberg/pull/16910">#16910</a> Manifest-length fix <b>(not mine)</b></td></tr>
+<tr><td valign="top"><b>Merged PRs</b></td><td><a href="https://github.com/apache/iceberg/pull/16219">#16219</a> Compaction benchmark &middot; <a href="https://github.com/apache/iceberg/pull/16593">#16593</a> Benchmark refactor &middot; <a href="https://github.com/apache/iceberg/pull/16729">#16729</a> EagerInputFile / EagerInputStream &middot; <a href="https://github.com/apache/iceberg/pull/17284">#17284</a> Parquet read path integration &middot; <a href="https://github.com/apache/iceberg/pull/16910">#16910</a> Manifest-length fix <b>(not mine)</b></td></tr>
 <tr><td valign="top"><b>Dev mailing list</b></td><td><a href="https://lists.apache.org/thread/rvbwmcbrlr3syd1movflw3vmprm27nmz">GSoC idea vetting and vote</a> &middot; <a href="https://lists.apache.org/thread/yb8nom3w2zplb703m0p052kcc1wwotrr">EagerInputFile discussion</a> &middot; <a href="https://lists.apache.org/thread/qhn00762nrxl1zmb817wqqq5tzlqolbq">Integration point discussion</a> &middot; <a href="https://lists.apache.org/thread/nvt5ddytf99jnjr58q1lsnpbn9j0ddb0">Wrapping up</a></td></tr>
 <tr><td valign="top"><b>Community sync</b></td><td><a href="https://youtu.be/usgUe8r_e9E?t=151">Iceberg Spark Community Sync, 17 Mar 2026</a></td></tr>
 <tr><td valign="top"><b>Benchmark reports</b></td><td><a href="https://github.com/varun-lakhyani/iceberg-default-aal-eagerinputfile/blob/main/README.md">Compaction</a> &middot; <a href="https://github.com/varun-lakhyani/iceberg-manifest-eagerpath-benchmark/blob/main/README.md">Manifest reads</a></td></tr>
